@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { AuthConfig } from './modules/auth/config/auth.config';
 import { configurationAuth } from './configuration/configuration-auth';
 import { MessagesModule } from './modules/messages/messages.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { MessagesModule } from './modules/messages/messages.module';
     }),
     UsersModule,
     MessagesModule,
+    NotificationsModule,
   ],
   providers: [
 
