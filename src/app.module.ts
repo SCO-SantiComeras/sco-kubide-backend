@@ -5,6 +5,8 @@ import { configurationApp } from './configuration/configuration-app';
 import { configurationMongo } from './configuration/configuration-mongo';
 import { MongoDbConfig } from './modules/mongo-db/mongo-db-config';
 import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { AuthConfig } from './modules/auth/config/auth.config';
 import { configurationAuth } from './configuration/configuration-auth';
 
 @Module({
@@ -29,6 +31,19 @@ import { configurationAuth } from './configuration/configuration-auth';
           pass: configService.get('mongo.password'),
         };
         return mongoDB;
+      },
+      inject: [ConfigService],
+    }),
+    AuthModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => {
+        const authConfig: AuthConfig = {
+          secret: configService.get('auth.secret'),
+          signOptions: { 
+            expiresIn: configService.get('auth.expiresIn') 
+          },
+        };
+        return authConfig;
       },
       inject: [ConfigService],
     }),
