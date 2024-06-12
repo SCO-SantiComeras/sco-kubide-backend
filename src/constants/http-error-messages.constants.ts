@@ -11,5 +11,13 @@ export const HTTP_ERROR_CONSTANTS = {
     UNNABLE_USER_TOKEN: 'Unnable to generate user token',
     UNAUTHORIZED: 'Unauthorized',
   },
+  MESSAGES: {
+    MESSAGE_NOT_FOUND: 'Message not found',
+    CREATE_MESSAGE_ERROR: 'Unnable to create message',
+    UPDATE_MESSAGE_ERROR: 'Unnable to update message',
+    DELETE_MESSAGE_ERROR: 'Unnable to delete message',
+    SEND_MESSAGE_ERROR: 'Unnable to send message',
+    USER_MESSAGES_NOT_ACTIVED: 'Destination user state inactived'
+  },
 };
   
