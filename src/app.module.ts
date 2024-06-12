@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configurationApp } from './configuration/configuration-app';
 import { configurationMongo } from './configuration/configuration-mongo';
 import { MongoDbConfig } from './modules/mongo-db/mongo-db-config';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { MongoDbConfig } from './modules/mongo-db/mongo-db-config';
       },
       inject: [ConfigService],
     }),
+    UsersModule,
   ],
   providers: [
 
