@@ -6,5 +6,10 @@ export const HTTP_ERROR_CONSTANTS = {
     CREATE_USER_ERROR: 'Unnable to create user',
     UPDATE_USER_ERROR: 'Unnable to update user',
   },
+  AUTH: {
+    INVALID_CREDENTIALS: 'Invalid credentials',
+    UNNABLE_USER_TOKEN: 'Unnable to generate user token',
+    UNAUTHORIZED: 'Unauthorized',
+  },
 };
   
