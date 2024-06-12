@@ -19,5 +19,10 @@ export const HTTP_ERROR_CONSTANTS = {
     SEND_MESSAGE_ERROR: 'Unnable to send message',
     USER_MESSAGES_NOT_ACTIVED: 'Destination user state inactived'
   },
+  NOTIFICATIONS: {
+    NOTIFICATION_NOT_FOUND: 'Notification not found',
+    CREATE_NOTIFICATION_ERROR: 'Unnable to create notification',
+    OPEN_NOTIFICATION_ERROR: 'Unnable to open notification'
+  },
 };
   
