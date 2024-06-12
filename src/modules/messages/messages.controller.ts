@@ -41,21 +41,23 @@ export class MessagesController {
     status: 404,
     description: 'Usuario no encontrado',
   })
-  async getUserMessages(@Req() req: Request, @Res() res: Response): Promise<Response<IMessage, Record<string, IMessage>>> {
+  async getUserMessages(@Req() req: Request, @Res() res: Response): Promise<Response<MessageDto[], Record<string, MessageDto[]>>> {
     const loggedUser: UserDto = this.usersService.modelToDto(await this.authService.decodeTokenUser(req));
     if (!loggedUser) {
       console.log('[fetchUserData] User token unauthorized');
       throw new HttpException(HTTP_ERROR_CONSTANTS.AUTH.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
     }
 
-    const existUser: IUser = await this.usersService.findUser(loggedUser._id);
-    if (!existUser) {
-      console.log(`[fetchUserData] User not found`);
-      throw new HttpException(HTTP_ERROR_CONSTANTS.USERS.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
-    }
+    /* Get All User Messages In From Or To Value */
+    const userMessages: IMessage[] = await this.messagesService.findMessagesByUser(loggedUser._id);
 
-    const userMessages: IMessage[] = await this.messagesService.findMessagesByUser(existUser._id);
-    return res.status(200).json(userMessages);
+    /* Convert User Messages To Dto Class */
+    let userMessagesDto: MessageDto[] = [];
+    if (userMessages && userMessages.length > 0) {
+      userMessagesDto = userMessages.map(message => this.messagesService.modelToDto(message));
+    }
+    
+    return res.status(200).json(userMessagesDto);
   }
 
   @Post('sendMessage')
@@ -93,43 +95,41 @@ export class MessagesController {
     status: 500,
     description: 'Imposible envíar el mensaje',
   })
-  async sendMessage(@Req() req: Request, @Res() res: Response, @Body() message: SendMessageDto): Promise<Response<IUser, Record<string, IUser>>> {
+  async sendMessage(@Req() req: Request, @Res() res: Response, @Body() message: SendMessageDto): Promise<Response<MessageDto, Record<string, MessageDto>>> {
     const loggedUser: UserDto = this.usersService.modelToDto(await this.authService.decodeTokenUser(req));
     if (!loggedUser) {
       console.log('[sendMessage] User token unauthorized');
       throw new HttpException(HTTP_ERROR_CONSTANTS.AUTH.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
     }
 
-    const existUser: IUser = await this.usersService.findUser(loggedUser._id);
-    if (!existUser) {
-      console.log(`[sendMessage] User not found`);
-      throw new HttpException(HTTP_ERROR_CONSTANTS.USERS.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
-    }
-
+    /* Check If To User Value Exists */
     const existToUser: IUser = await this.usersService.findUserByEmail(message.to);
     if (!existToUser) {
       console.log(`[sendMessage] User not found`);
       throw new HttpException(HTTP_ERROR_CONSTANTS.USERS.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
 
+    /* Check If To User State Is Active */
     if (!existToUser.active) {
       console.log(`[sendMessage] User '${existToUser.email}' state is inactive`);
       throw new HttpException(HTTP_ERROR_CONSTANTS.MESSAGES.USER_MESSAGES_NOT_ACTIVED, HttpStatus.CONFLICT);
     }
 
+    /* Create Message */
     const newMessage: MessageDto = {
-      from: existUser,
+      from: loggedUser,
       to: existToUser,
       text: message.text,
     }
 
+    /* Send Message */
     const messageSended: IMessage = await this.messagesService.addMessage(newMessage);
     if (!messageSended) {
       console.log('[sendMessage] Unnable to send message');
       throw new HttpException(HTTP_ERROR_CONSTANTS.MESSAGES.SEND_MESSAGE_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    return res.status(200).json(messageSended);
+    return res.status(200).json(this.messagesService.modelToDto(messageSended));
   }
 
   @Get('findChatByUsers/:email')
@@ -151,26 +151,29 @@ export class MessagesController {
     status: 404,
     description: 'Usuario no encontrado',
   })
-  async findChatByUsers(@Req() req: Request, @Res() res: Response, @Param('email') email: string): Promise<Response<IMessage, Record<string, IMessage>>> {
+  async findChatByUsers(@Req() req: Request, @Res() res: Response, @Param('email') email: string): Promise<Response<MessageDto[], Record<string, MessageDto[]>>> {
     const loggedUser: UserDto = this.usersService.modelToDto(await this.authService.decodeTokenUser(req));
     if (!loggedUser) {
       console.log('[fetchUserData] User token unauthorized');
       throw new HttpException(HTTP_ERROR_CONSTANTS.AUTH.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
     }
 
-    const existUser: IUser = await this.usersService.findUser(loggedUser._id);
-    if (!existUser) {
-      console.log(`[fetchUserData] User not found`);
-      throw new HttpException(HTTP_ERROR_CONSTANTS.USERS.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
-    }
-
+    /* Check If Exists To User */
     const existToUser: IUser = await this.usersService.findUserByEmail(email);
     if (!existToUser) {
       console.log(`[fetchUserData] User not found`);
       throw new HttpException(HTTP_ERROR_CONSTANTS.USERS.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
 
-    const userMessages: IMessage[] = await this.messagesService.findChatByUsers(existUser._id, existToUser._id);
-    return res.status(200).json(userMessages);
+    /* Get All Messages Between Both Users */
+    const userMessages: IMessage[] = await this.messagesService.findChatByUsers(loggedUser._id, existToUser._id);
+
+    /* Convert Messages To Dto Class */
+    let userMessagesDto: MessageDto[] = [];
+    if (userMessages && userMessages.length > 0) {
+      userMessagesDto = userMessages.map(message => this.messagesService.modelToDto(message));
+    }
+
+    return res.status(200).json(userMessagesDto);
   }
 }
