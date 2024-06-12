@@ -61,5 +61,42 @@ export const VALIDATION_ERROR_CONSTANTS = {
             INVALID_VALUE: 'User should be object (UserDto) value',
         }
     },
+    MESSAGE: {
+        ID: {
+            NOT_EMPTY: '_id should be not empty',
+            INVALID_VALUE: '_id should be string value',
+        },
+        FROM: {
+            NOT_EMPTY: 'From should be not empty',
+            INVALID_VALUE: 'From should be object (UserDto) value',
+        },
+        TO: {
+            NOT_EMPTY: 'To should be not empty',
+            INVALID_VALUE: 'From should be object (UserDto) value',
+        },
+        TEXT: {
+            NOT_EMPTY: 'Text should be not empty',
+            INVALID_VALUE: 'Text should be string value',
+        },
+        CREATED_AT: {
+            NOT_EMPTY: 'Created at should be not empty',
+            INVALID_VALUE: 'Created at should be Date value',
+        },
+        UPDATED_AT: {
+            NOT_EMPTY: 'Updated at should be not empty',
+            INVALID_VALUE: 'Updated at should be Date value',
+        },
+    },
+    SEND_MESSAGE: {
+        TO: {
+            NOT_EMPTY: 'To email should be not empty',
+            INVALID_VALUE: 'To email should be string value',
+            MATCHES: 'To email should be valid',
+        },
+        TEXT: {
+            NOT_EMPTY: 'Text should be not empty',
+            INVALID_VALUE: 'Text should be string value',
+        },
+    },
 };
     
