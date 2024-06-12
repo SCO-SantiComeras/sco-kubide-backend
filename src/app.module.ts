@@ -5,6 +5,7 @@ import { configurationApp } from './configuration/configuration-app';
 import { configurationMongo } from './configuration/configuration-mongo';
 import { MongoDbConfig } from './modules/mongo-db/mongo-db-config';
 import { UsersModule } from './modules/users/users.module';
+import { configurationAuth } from './configuration/configuration-auth';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { UsersModule } from './modules/users/users.module';
       load: [
         configurationApp,
         configurationMongo,
+        configurationAuth,
       ],
       envFilePath: `./env/${process.env.NODE_ENV}.env`,
       isGlobal: true,
