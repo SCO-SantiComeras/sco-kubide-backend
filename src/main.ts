@@ -1,9 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
+  
   const app = await NestFactory.create(AppModule);
+  const configService = app.get<ConfigService>(ConfigService);
+
+  const appPort: number = configService.get('app.port') || 3000;
+  const appHost: string = configService.get('app.host') || 'localhost';
+  const appSwaggerRoute: string = configService.get('app.swaggerRoute') || 'swagger';
   
   const swagger = new DocumentBuilder()
     .setTitle('SCO - Kubide backend')
@@ -24,11 +31,11 @@ async function bootstrap() {
     .build();
 
   const document: OpenAPIObject = SwaggerModule.createDocument(app, swagger);
-  SwaggerModule.setup('swagger', app, document);
+  SwaggerModule.setup(appSwaggerRoute, app, document);
 
-  await app.listen(3000).then(() => {
-    console.log(`[bootstrap] Swagger started in url 'http://localhost:3000/swagger'`);
-    console.log(`[bootstrap] App started in 'http://localhost:3000'`);
+  await app.listen(appPort).then(() => {
+    console.log(`[bootstrap] Swagger started in url 'http://${appHost}:${appPort}/${appSwaggerRoute}'`);
+    console.log(`[bootstrap] App started in 'http://${appHost}:${appPort}'`);
   });
 }
 bootstrap();
