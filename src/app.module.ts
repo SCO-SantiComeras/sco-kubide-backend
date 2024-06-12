@@ -8,6 +8,7 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthConfig } from './modules/auth/config/auth.config';
 import { configurationAuth } from './configuration/configuration-auth';
+import { MessagesModule } from './modules/messages/messages.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { configurationAuth } from './configuration/configuration-auth';
       inject: [ConfigService],
     }),
     UsersModule,
+    MessagesModule,
   ],
   providers: [
 
