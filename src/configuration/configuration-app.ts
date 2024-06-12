@@ -5,4 +5,5 @@ export const configurationApp = registerAs('app', () => ({
   port: parseInt(process.env.PORT_APP, 10 || 3000),
   host: process.env.HOST_APP,
   production: process.env.PRODUCTION_APP == 'true',
+  swaggerRoute: process.env.SWAGGER_ROUTE_APP,
 }));
