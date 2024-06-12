@@ -7,4 +7,8 @@ export const MONGODB_CONSTANTS = {
         MODEL: 'Message',
         TABLE: 'messages',
     },
+    NOTIFICATIONS: {
+        MODEL: 'Notification',
+        TABLE: 'notifications',
+    },
 }
