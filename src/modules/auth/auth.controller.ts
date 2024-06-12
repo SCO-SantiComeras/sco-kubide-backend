@@ -106,13 +106,14 @@ export class AuthController {
     status: 500,
     description: 'Imposible registrar el usuario',
   })
-  async register(@Res() res: Response, @Body() user: UserDto): Promise<Response<IUser, Record<string, IUser>>> {
+  async register(@Res() res: Response, @Body() user: UserDto): Promise<Response<UserDto, Record<string, UserDto>>> {
     const existUser: IUser = await this.usersService.findUserByEmail(user.email);
     if (existUser) {
       console.log(`[register] User '${user.email}' already exist`);
       throw new HttpException(HTTP_ERROR_CONSTANTS.USERS.USER_ALREADY_EXIST, HttpStatus.CONFLICT);
     }
 
+    /* Default New Users Active State Is False */
     user.active = false;
 
     const createdUser: IUser = await this.usersService.addUser(user);
@@ -122,6 +123,6 @@ export class AuthController {
     }
 
     console.log(`[register] User '${user.email}' created successfully`);
-    return res.status(200).json(createdUser);
+    return res.status(200).json(this.usersService.modelToDto(createdUser));
   }
 }
