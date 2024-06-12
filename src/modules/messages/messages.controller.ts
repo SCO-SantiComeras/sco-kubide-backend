@@ -1,5 +1,5 @@
 import { HTTP_ERROR_CONSTANTS } from '../../constants/http-error-messages.constants';
-import { Body, Controller, Get, HttpException, HttpStatus, Res, UseGuards, Post, Req, Param } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Res, UseGuards, Post, Req, Param, forwardRef, Inject } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response, Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
@@ -11,6 +11,9 @@ import { UsersService } from '../users/users.service';
 import { IUser } from '../users/interface/iuser.interface';
 import { MessageDto } from './dto/message.dto';
 import { SendMessageDto } from './dto/send-message.dto';
+import { NotificationsService } from '../notifications/notifications.service';
+import { NotificationDto } from '../notifications/dto/notification.dto';
+import { INotification } from '../notifications/interface/inotification.interface';
 
 @Controller('api/v1/messages')
 @ApiTags('Mensajes')
@@ -20,6 +23,7 @@ export class MessagesController {
     private readonly messagesService: MessagesService,
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
+    @Inject(forwardRef(() => MessagesService)) private readonly notificationsService: NotificationsService,
   ) {}
 
   @Get('getUserMessages')
@@ -127,6 +131,18 @@ export class MessagesController {
     if (!messageSended) {
       console.log('[sendMessage] Unnable to send message');
       throw new HttpException(HTTP_ERROR_CONSTANTS.MESSAGES.SEND_MESSAGE_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /* Create New Message Notification */
+    const notificationDto: NotificationDto = {
+      user: existToUser,
+      message: messageSended,
+    };
+
+    /* Send To User New Message Notification */
+    const notificationSended: INotification = await this.notificationsService.addNotification(notificationDto);
+    if (!notificationSended) {
+      console.log('[sendMessage] Unnable to send notification');
     }
 
     return res.status(200).json(this.messagesService.modelToDto(messageSended));
