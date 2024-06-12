@@ -38,5 +38,28 @@ export const VALIDATION_ERROR_CONSTANTS = {
             INVALID_VALUE: 'Updated at should be Date value',
         },
     },
+    LOGIN: {
+        EMAIL: {
+            NOT_EMPTY: 'Email should be not empty',
+            INVALID_VALUE: 'Email should be string value',
+            MATCHES: 'Email should be valid',
+        },
+        PASSWORD: {
+            NOT_EMPTY: 'Password should be not empty',
+            INVALID_VALUE: 'Password should be string value',
+            MIN_LENGTH: 'Password minimum length is 9 characteres',
+            MATCHES: 'Password invalid format. At least one upper case, one lower case, one number and one special character',
+        }
+    },
+    TOKEN: {
+        ACCESS_TOKEN: {
+            NOT_EMPTY: 'Access token should be not empty',
+            INVALID_VALUE: 'Access token should be string value',
+        },
+        USER: {
+            NOT_EMPTY: 'User should be not empty',
+            INVALID_VALUE: 'User should be object (UserDto) value',
+        }
+    },
 };
     
