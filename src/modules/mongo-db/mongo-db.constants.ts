@@ -3,4 +3,8 @@ export const MONGODB_CONSTANTS = {
         MODEL: 'User',
         TABLE: 'users',
     },
+    MESSAGES: {
+        MODEL: 'Message',
+        TABLE: 'messages',
+    },
 }
