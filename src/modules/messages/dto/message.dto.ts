@@ -1,8 +1,8 @@
-import { VALIDATION_ERROR_CONSTANTS } from '../../../constants/validation-error-messages.constants';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDate, IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 import { UserDto } from '../../users/dto/user.dto';
+import { VALIDATION_ERROR_CONSTANTS } from '../../../constants/validation-error-messages.constants';
 
 export class MessageDto {
   

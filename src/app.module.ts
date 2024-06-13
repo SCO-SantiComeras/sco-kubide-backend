@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { MongoDbModule } from './modules/mongo-db/mongo-db.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongoDbModule } from './modules/mongo-db/mongo-db.module';
 import { configurationApp } from './configuration/configuration-app';
 import { configurationMongo } from './configuration/configuration-mongo';
 import { MongoDbConfig } from './modules/mongo-db/mongo-db-config';

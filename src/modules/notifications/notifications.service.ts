@@ -1,6 +1,6 @@
 import { Inject, Injectable, forwardRef } from "@nestjs/common";
-import { INotification } from "./interface/inotification.interface";
 import { Model } from "mongoose";
+import { INotification } from "./interface/inotification.interface";
 import { UsersService } from "../users/users.service";
 import { MessagesService } from "../messages/messages.service";
 import { NotificationDto } from "./dto/notification.dto";

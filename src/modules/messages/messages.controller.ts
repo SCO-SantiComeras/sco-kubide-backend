@@ -1,8 +1,7 @@
-import { HTTP_ERROR_CONSTANTS } from '../../constants/http-error-messages.constants';
 import { Body, Controller, Get, HttpException, HttpStatus, Res, UseGuards, Post, Req, Param, forwardRef, Inject } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Response, Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
+import { Response, Request } from 'express';
 import { AuthService } from '../auth/auth.service';
 import { MessagesService } from './messages.service';
 import { IMessage } from './interface/imessage.interface';
@@ -14,6 +13,7 @@ import { SendMessageDto } from './dto/send-message.dto';
 import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationDto } from '../notifications/dto/notification.dto';
 import { INotification } from '../notifications/interface/inotification.interface';
+import { HTTP_ERROR_CONSTANTS } from '../../constants/http-error-messages.constants';
 
 @Controller('api/v1/messages')
 @ApiTags('Mensajes')

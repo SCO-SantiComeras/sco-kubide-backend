@@ -1,6 +1,6 @@
-import { VALIDATION_ERROR_CONSTANTS } from '../../../constants/validation-error-messages.constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, Matches } from 'class-validator';
+import { VALIDATION_ERROR_CONSTANTS } from '../../../constants/validation-error-messages.constants';
 
 export class SendMessageDto {
 

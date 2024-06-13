@@ -1,10 +1,10 @@
 import { Controller, Get, HttpException, HttpStatus, Param, Req, Res, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { AuthGuard } from "@nestjs/passport";
+import { Response, Request } from "express";
 import { NotificationsService } from "./notifications.service";
 import { AuthService } from "../auth/auth.service";
-import { AuthGuard } from "@nestjs/passport";
 import { INotification } from "./interface/inotification.interface";
-import { Response, Request } from "express";
 import { UsersService } from "../users/users.service";
 import { UserDto } from "../users/dto/user.dto";
 import { HTTP_ERROR_CONSTANTS } from "src/constants/http-error-messages.constants";

@@ -1,14 +1,14 @@
-import { HTTP_ERROR_CONSTANTS } from '../../constants/http-error-messages.constants';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Controller, Post, Body, HttpException, HttpStatus, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { UsersService } from '../users/users.service';
 import { TokenDto } from './dto/token.dto';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IUser } from '../users/interface/iuser.interface';
-import { Response } from 'express';
 import { BcryptService } from '../shared/bcrypt/bcrypt.service';
 import { UserDto } from '../users/dto/user.dto';
+import { HTTP_ERROR_CONSTANTS } from '../../constants/http-error-messages.constants';
 
 @Controller('api/v1/auth')
 @ApiTags('Autentificación')
