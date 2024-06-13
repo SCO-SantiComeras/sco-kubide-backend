@@ -1,0 +1,23 @@
+FROM node:16-alpine3.18
+
+RUN addgroup backend && adduser -S -G backend backend
+USER backend
+
+WORKDIR /app/
+
+COPY --chown=backend package*.json .
+COPY --chown=backend . .
+
+run npm i @nestjs/cli@10.0.0
+
+RUN npm run build
+
+RUN cp -r env/ ./dist/env
+RUN cp -r package.json ./dist/package.json
+
+RUN cd dist
+RUN npm install
+RUN npm install cross-env
+
+EXPOSE 3000
+CMD ["npm", "run", "start:prod"]
