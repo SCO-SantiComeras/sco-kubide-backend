@@ -21,11 +21,13 @@ export class MongoDbService {
   }
 
   async createConnectionDB(options: MongoDbConfig) {
-    const dockerApp: boolean = this.configService.get('docker.enabled');
+    const dbHostName: string = !this.configService.get('docker.enabled') 
+      ? options.ip 
+      : this.configService.get('docker.dbService');
 
-    let url = `mongodb://${!dockerApp ? options.ip : 'db'}:${options.port}/${options.database}`;
+    let url = `mongodb://${dbHostName}:${options.port}/${options.database}`;
     if (options.user && options.pass) {
-      url = `mongodb://${options.user}:${options.pass}@${!dockerApp ? options.ip : 'db'}:${options.port}/${options.database}?authSource=admin`;
+      url = `mongodb://${options.user}:${options.pass}@${dbHostName}:${options.port}/${options.database}?authSource=admin`;
     }
 
     this._dbConnection = mongoose.createConnection(url, {
