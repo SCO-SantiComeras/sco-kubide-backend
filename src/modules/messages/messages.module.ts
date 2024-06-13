@@ -7,12 +7,13 @@ import { IMessage } from "./interface/imessage.interface";
 import { MONGODB_CONSTANTS } from "../mongo-db/mongo-db.constants";
 import { messageSchema } from "./schema/message.schema";
 import { UsersModule } from "../users/users.module";
+import { NotificationsModule } from "../notifications/notifications.module";
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     UsersModule,
-    forwardRef(() => MessagesModule),
+    forwardRef(() => NotificationsModule),
   ],
   controllers: [
     MessagesController,

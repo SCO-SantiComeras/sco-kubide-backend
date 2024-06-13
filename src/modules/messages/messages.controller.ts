@@ -23,7 +23,7 @@ export class MessagesController {
     private readonly messagesService: MessagesService,
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
-    @Inject(forwardRef(() => MessagesService)) private readonly notificationsService: NotificationsService,
+    @Inject(forwardRef(() => NotificationsService)) private readonly notificationsService: NotificationsService,
   ) {}
 
   @Get('getUserMessages')
