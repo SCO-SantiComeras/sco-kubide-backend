@@ -2,7 +2,7 @@ import { Schema, Types } from 'mongoose';
 import { MONGODB_CONSTANTS } from '../../mongo-db/mongo-db.constants';
 import { INotification } from '../interface/inotification.interface';
 
-export const notificationSchema = new Schema<INotification>(
+export const NOTIFICATIONS_SCHEMA = new Schema<INotification>(
   {
     user: { 
       type: Types.ObjectId, 

@@ -6,7 +6,7 @@ import { NotificationsService } from "./notifications.service";
 import { MongoDbService } from "../mongo-db/mongo-db.service";
 import { MONGODB_CONSTANTS } from "../mongo-db/mongo-db.constants";
 import { INotification } from "./interface/inotification.interface";
-import { notificationSchema } from "./schema/notification.schema";
+import { NOTIFICATIONS_SCHEMA } from "./schema/notification.schema";
 import { MessagesModule } from "../messages/messages.module";
 import { UsersModule } from "../users/users.module";
 
@@ -23,7 +23,7 @@ import { UsersModule } from "../users/users.module";
     {
       provide: 'MODEL',
       useFactory: (db: MongoDbService) =>
-        db.getConnection().model<INotification>(MONGODB_CONSTANTS.NOTIFICATIONS.MODEL, notificationSchema, MONGODB_CONSTANTS.NOTIFICATIONS.TABLE),
+        db.getConnection().model<INotification>(MONGODB_CONSTANTS.NOTIFICATIONS.MODEL, NOTIFICATIONS_SCHEMA, MONGODB_CONSTANTS.NOTIFICATIONS.TABLE),
       inject: [MongoDbService],
     },
   ],

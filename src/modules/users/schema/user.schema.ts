@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt';
 import { Schema } from 'mongoose';
 import { IUser } from '../interface/iuser.interface';
 
-export const userSchema = new Schema<IUser>(
+export const USERS_SCHEMA = new Schema<IUser>(
   {
     email: {
       type: String,
@@ -31,7 +31,7 @@ export const userSchema = new Schema<IUser>(
   },
 );
 
-userSchema.pre<IUser>('save', async function () {
+USERS_SCHEMA.pre<IUser>('save', async function () {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(this.password, salt);
   this.password = hash;

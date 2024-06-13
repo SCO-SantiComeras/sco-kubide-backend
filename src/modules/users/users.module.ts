@@ -5,7 +5,7 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { MongoDbService } from '../mongo-db/mongo-db.service';
 import { IUser } from './interface/iuser.interface';
-import { userSchema } from './schema/user.schema';
+import { USERS_SCHEMA } from './schema/user.schema';
 import { MONGODB_CONSTANTS } from '../mongo-db/mongo-db.constants';
 import { SharedModule } from '../shared/shared.module';
 
@@ -22,7 +22,7 @@ import { SharedModule } from '../shared/shared.module';
     {
       provide: 'MODEL',
       useFactory: (db: MongoDbService) =>
-        db.getConnection().model<IUser>(MONGODB_CONSTANTS.USERS.MODEL, userSchema, MONGODB_CONSTANTS.USERS.TABLE),
+        db.getConnection().model<IUser>(MONGODB_CONSTANTS.USERS.MODEL, USERS_SCHEMA, MONGODB_CONSTANTS.USERS.TABLE),
       inject: [MongoDbService],
     },
   ],

@@ -2,7 +2,7 @@ import { Schema, Types } from 'mongoose';
 import { IMessage } from '../interface/imessage.interface';
 import { MONGODB_CONSTANTS } from '../../mongo-db/mongo-db.constants';
 
-export const messageSchema = new Schema<IMessage>(
+export const MESSAGE_SCHEMA = new Schema<IMessage>(
   {
     from: { 
       type: Types.ObjectId, 
