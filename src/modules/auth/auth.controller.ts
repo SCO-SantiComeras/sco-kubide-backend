@@ -88,8 +88,7 @@ export class AuthController {
         value: {
           email: 'user1@email.com',
           name: 'Usuario 1',
-          password: 'User123456!',
-          active: false,
+          password: 'User123456!'
         },
       },
     },
