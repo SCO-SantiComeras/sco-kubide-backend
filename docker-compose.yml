@@ -5,7 +5,7 @@ services:
     build: ./
     environment:
       - NODE_ENV=development
-      - DOCKER_APP=true
+      - ENABLED_DOCKER=true
     ports:
       - 3000:3000
     volumes:

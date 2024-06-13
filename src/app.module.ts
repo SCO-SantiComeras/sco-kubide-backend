@@ -10,6 +10,7 @@ import { AuthConfig } from './modules/auth/config/auth.config';
 import { configurationAuth } from './configuration/configuration-auth';
 import { MessagesModule } from './modules/messages/messages.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { configurationDocker } from './configuration/configuration-docker';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
         configurationApp,
         configurationMongo,
         configurationAuth,
+        configurationDocker,
       ],
       envFilePath: `./env/${process.env.NODE_ENV}.env`,
       isGlobal: true,

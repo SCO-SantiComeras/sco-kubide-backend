@@ -21,7 +21,7 @@ export class MongoDbService {
   }
 
   async createConnectionDB(options: MongoDbConfig) {
-    const dockerApp: boolean = this.configService.get('app.docker');
+    const dockerApp: boolean = this.configService.get('docker.enabled');
 
     let url = `mongodb://${!dockerApp ? options.ip : 'db'}:${options.port}/${options.database}`;
     if (options.user && options.pass) {
