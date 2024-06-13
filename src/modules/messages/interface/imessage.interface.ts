@@ -1,4 +1,4 @@
-import { IUser } from "src/modules/users/interface/iuser.interface";
+import { IUser } from "../../users/interface/iuser.interface";
 
 export interface IMessage {
   _id?: string;

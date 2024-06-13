@@ -1,6 +1,6 @@
 import { Schema, Types } from 'mongoose';
 import { IMessage } from '../interface/imessage.interface';
-import { MONGODB_CONSTANTS } from 'src/modules/mongo-db/mongo-db.constants';
+import { MONGODB_CONSTANTS } from '../../mongo-db/mongo-db.constants';
 
 export const messageSchema = new Schema<IMessage>(
   {

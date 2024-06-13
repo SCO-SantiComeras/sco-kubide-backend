@@ -1,5 +1,5 @@
 import { Schema, Types } from 'mongoose';
-import { MONGODB_CONSTANTS } from 'src/modules/mongo-db/mongo-db.constants';
+import { MONGODB_CONSTANTS } from '../../mongo-db/mongo-db.constants';
 import { INotification } from '../interface/inotification.interface';
 
 export const notificationSchema = new Schema<INotification>(
