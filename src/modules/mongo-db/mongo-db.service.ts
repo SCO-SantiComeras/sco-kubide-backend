@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import * as mongoose from 'mongoose';
 import { MongoDbConfig } from './mongo-db-config';
 
@@ -7,7 +8,10 @@ export class MongoDbService {
 
   private _dbConnection: mongoose.Connection;
 
-  constructor(@Inject('CONFIG_OPTIONS') private options: MongoDbConfig) {
+  constructor(
+    @Inject('CONFIG_OPTIONS') private options: MongoDbConfig,
+    private readonly configService: ConfigService,
+  ) {
     if (!this.options) {
       console.error('[MongoDbService] Unnable to get options for init connection');
       throw new Error('MongoDB Unnable to get options for init connection');
@@ -17,9 +21,11 @@ export class MongoDbService {
   }
 
   async createConnectionDB(options: MongoDbConfig) {
-    let url = `mongodb://${options.ip}:${options.port}/${options.database}`;
+    const dockerApp: boolean = this.configService.get('app.docker');
+
+    let url = `mongodb://${!dockerApp ? options.ip : 'db'}:${options.port}/${options.database}`;
     if (options.user && options.pass) {
-      url = `mongodb://${options.user}:${options.pass}@${options.ip}:${options.port}/${options.database}?authSource=admin`;
+      url = `mongodb://${options.user}:${options.pass}@${!dockerApp ? options.ip : 'db'}:${options.port}/${options.database}?authSource=admin`;
     }
 
     this._dbConnection = mongoose.createConnection(url, {

@@ -6,4 +6,5 @@ export const configurationApp = registerAs('app', () => ({
   host: process.env.HOST_APP,
   production: process.env.PRODUCTION_APP == 'true',
   swaggerRoute: process.env.SWAGGER_ROUTE_APP,
+  docker: process.env.DOCKER_APP == 'true',
 }));
